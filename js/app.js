@@ -5,10 +5,10 @@
     o = (t = 500) => {
       let o = document.querySelector("body");
       if (e) {
-        let r = document.querySelectorAll("[data-lp]");
+        let c = document.querySelectorAll("[data-lp]");
         setTimeout(() => {
-          for (let t = 0; t < r.length; t++) {
-            r[t].style.paddingRight = "0px";
+          for (let t = 0; t < c.length; t++) {
+            c[t].style.paddingRight = "0px";
           }
           (o.style.paddingRight = "0px"),
             document.documentElement.classList.remove("lock");
@@ -19,12 +19,12 @@
           }, t);
       }
     },
-    r = (t = 500) => {
+    c = (t = 500) => {
       let o = document.querySelector("body");
       if (e) {
-        let r = document.querySelectorAll("[data-lp]");
-        for (let t = 0; t < r.length; t++) {
-          r[t].style.paddingRight =
+        let c = document.querySelectorAll("[data-lp]");
+        for (let t = 0; t < c.length; t++) {
+          c[t].style.paddingRight =
             window.innerWidth -
             document.querySelector(".wrapper").offsetWidth +
             "px";
@@ -40,11 +40,43 @@
           }, t);
       }
     };
-  function c(t) {
+  function r(t) {
+    setTimeout(() => {
+      window.FLS && console.log(t);
+    }, 0);
+  }
+  function n(t) {
     return t.filter(function (t, e, o) {
       return o.indexOf(t) === e;
     });
   }
+  let a = (t, e = !1, c = 500, n = 0) => {
+    const a = "string" == typeof t ? document.querySelector(t) : t;
+    if (a) {
+      let s = "",
+        l = 0;
+      e &&
+        ((s = "header.header"), (l = document.querySelector(s).offsetHeight));
+      let i = {
+        speedAsDuration: !0,
+        speed: c,
+        header: s,
+        offset: n,
+        easing: "easeOutQuad",
+      };
+      if (
+        (document.documentElement.classList.contains("menu-open") &&
+          (o(), document.documentElement.classList.remove("menu-open")),
+        "undefined" != typeof SmoothScroll)
+      )
+        new SmoothScroll().animateScroll(a, "", i);
+      else {
+        let t = a.getBoundingClientRect().top + scrollY;
+        window.scrollTo({ top: l ? t - l : t, behavior: "smooth" });
+      }
+      r(`[gotoBlock]: Юхуу...едем к ${t}`);
+    } else r(`[gotoBlock]: Ой ой..Такого блока нет на странице: ${t}`);
+  };
   t.watcher = new (class {
     constructor(t) {
       (this.config = Object.assign({ logging: !0 }, t)),
@@ -66,7 +98,7 @@
         this.scrollWatcherLogging(
           `Проснулся, слежу за объектами (${t.length})...`
         ),
-          c(
+          n(
             Array.from(t).map(function (t) {
               return `${
                 t.dataset.watchRoot ? t.dataset.watchRoot : null
@@ -74,20 +106,20 @@
             })
           ).forEach((e) => {
             let o = e.split("|"),
-              r = { root: o[0], margin: o[1], threshold: o[2] },
-              c = Array.from(t).filter(function (t) {
+              c = { root: o[0], margin: o[1], threshold: o[2] },
+              r = Array.from(t).filter(function (t) {
                 let e = t.dataset.watchRoot ? t.dataset.watchRoot : null,
                   o = t.dataset.watchMargin ? t.dataset.watchMargin : "0px",
-                  c = t.dataset.watchThreshold ? t.dataset.watchThreshold : 0;
+                  r = t.dataset.watchThreshold ? t.dataset.watchThreshold : 0;
                 if (
-                  String(e) === r.root &&
-                  String(o) === r.margin &&
-                  String(c) === r.threshold
+                  String(e) === c.root &&
+                  String(o) === c.margin &&
+                  String(r) === c.threshold
                 )
                   return t;
               }),
-              n = this.getScrollWatcherConfig(r);
-            this.scrollWatcherInit(c, n);
+              n = this.getScrollWatcherConfig(c);
+            this.scrollWatcherInit(r, n);
           });
       } else
         this.scrollWatcherLogging("Сплю, нет объектов для слежения. ZzzZZzz");
@@ -142,12 +174,7 @@
         this.scrollWatcherLogging(`Я перестал следить за ${t.classList}`);
     }
     scrollWatcherLogging(t) {
-      this.config.logging &&
-        (function (t) {
-          setTimeout(() => {
-            window.FLS && console.log(t);
-          }, 0);
-        })(`[Наблюдатель]: ${t}`);
+      this.config.logging && r(`[Наблюдатель]: ${t}`);
     }
     scrollWatcherCallback(t, e) {
       const o = t.target;
@@ -160,9 +187,9 @@
         );
     }
   })({});
-  let n = !1;
+  let s = !1;
   setTimeout(() => {
-    if (n) {
+    if (s) {
       let t = new Event("windowScroll");
       window.addEventListener("scroll", function (e) {
         document.dispatchEvent(t);
@@ -188,9 +215,37 @@
         t.addEventListener("click", function (t) {
           e &&
             (((t = 500) => {
-              document.documentElement.classList.contains("lock") ? o(t) : r(t);
+              document.documentElement.classList.contains("lock") ? o(t) : c(t);
             })(),
             document.documentElement.classList.toggle("menu-open"));
         });
+    })(),
+    (function () {
+      function t(t) {
+        if ("click" === t.type) {
+          const e = t.target;
+          if (e.closest("[data-goto]")) {
+            const o = e.closest("[data-goto]"),
+              c = o.dataset.goto ? o.dataset.goto : "",
+              r = !!o.hasAttribute("data-goto-header"),
+              n = o.dataset.gotoSpeed ? o.dataset.gotoSpeed : "500";
+            a(c, r, n), t.preventDefault();
+          }
+        } else if ("watcherCallback" === t.type && t.detail) {
+          const e = t.detail.entry,
+            o = e.target;
+          if ("navigator" === o.dataset.watch) {
+            const t = o.id,
+              c =
+                (document.querySelector("[data-goto]._navigator-active"),
+                document.querySelector(`[data-goto="${t}"]`));
+            e.isIntersecting
+              ? c && c.classList.add("_navigator-active")
+              : c && c.classList.remove("_navigator-active");
+          }
+        }
+      }
+      document.addEventListener("click", t),
+        document.addEventListener("watcherCallback", t);
     })();
 })();
