@@ -268,6 +268,8 @@ body {
   width: 100%;
   position: fixed;
   display: flex;
+  top: 0;
+  left: 0;
 }
 .header__container {
   display: flex;
@@ -281,6 +283,7 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  z-index: 50;
 }
 .header__logo {
   width: 65px;
@@ -295,6 +298,7 @@ body {
   text-align: center;
   font-weight: 600;
   cursor: pointer;
+  z-index: 51;
 }
 @media (min-width: 76.25em) {
   .header__logo {
@@ -535,6 +539,9 @@ footer {
 }
 .footer__link ._icon-mail2 {
   color: #000;
+}
+.footer__link ._icon-arrow-right::before {
+  margin: 0px 5px 0px 0px;
 }
 .footer__icon {
   display: flex;
@@ -1001,6 +1008,95 @@ footer {
   .contacts__iamge img {
     width: 300px;
   }
+}
+
+.call {
+  position: fixed;
+  bottom: 5%;
+  right: 10%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #018D43;
+  box-shadow: 0px 0px 20px #018D43;
+  display: none;
+  z-index: 49;
+  cursor: pointer;
+}
+@media (max-width: 47.99875em) {
+  .call {
+    display: flex;
+  }
+}
+._icon-phone {
+  font-size: 25px;
+  color: #fff;
+}
+.page__info {
+  background: linear-gradient(119.3006528762deg, #3d484e 6.140625%, #95a8b5 95.515625%);
+  box-shadow: 0px -50px 100px #3D4957;
+  min-height: 100vh;
+  padding: 50px 0px;
+}
+
+.info__title {
+  text-align: center;
+}
+@media (min-width: 76.25em) {
+  .info__title {
+    margin-bottom: 2.5rem;
+  }
+}
+@media (min-width: 20em) and (max-width: 76.25em) {
+  .info__title {
+    margin-bottom: clamp( 0.625rem , -0.0416666667rem  +  3.3333333333vw , 2.5rem );
+  }
+}
+@media (max-width: 20em) {
+  .info__title {
+    margin-bottom: 0.625rem;
+  }
+}
+.info__list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.info__list > *:not(:last-child) {
+  margin: 0px 0px 20px 0px;
+}
+.info__item {
+  display: flex;
+}
+@media (max-width: 47.99875em) {
+  .info__item {
+    flex-direction: column;
+  }
+}
+.info__text {
+  background: #3d484e;
+  color: #fff;
+  text-align: right;
+  padding: 10px;
+  margin: 0px 20px 0px 0px;
+  flex: 0 1 50%;
+}
+.info__text:last-child {
+  margin: 0px 0px;
+}
+@media (max-width: 47.99875em) {
+  .info__text {
+    text-align: left;
+    margin: 0px 0px 20px 0px;
+  }
+}
+.info__text:first-child {
+  background: #95a8b5;
+  color: #000;
+  text-align: left;
 }
 
 .page__price {
