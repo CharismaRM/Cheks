@@ -311,6 +311,7 @@ textarea.input {
   height: 65px;
   border-radius: 50%;
   line-height: 120%;
+  flex: 0 1 65px;
   background: #ffd700;
   box-shadow: 0px 0px 10px #ffd700;
   display: flex;
@@ -338,16 +339,20 @@ textarea.input {
   }
 }
 .header__menu {
-  flex: 0 1 70%;
-}
-@media (max-width: 61.99875em) {
-  .header__menu {
-    flex: 0 1 70%;
-  }
+  flex: 0 1 60%;
 }
 @media (max-width: 47.99875em) {
   .header__menu {
-    flex: 0 1 20%;
+    flex: 0 1 30px;
+  }
+}
+.header__contacts {
+  display: flex;
+  flex: 1 1 auto;
+}
+@media (max-width: 61.99875em) {
+  .header__contacts {
+    flex-direction: column;
   }
 }
 .header__number {
@@ -357,17 +362,25 @@ textarea.input {
 }
 @media (min-width: 76.25em) {
   .header__number {
-    font-size: 1rem;
+    font-size: 0.875rem;
   }
 }
 @media (min-width: 20em) and (max-width: 76.25em) {
   .header__number {
-    font-size: clamp( 0.875rem , 0.8305555556rem  +  0.2222222222vw , 1rem );
+    font-size: clamp( 0.75rem , 0.7055555556rem  +  0.2222222222vw , 0.875rem );
   }
 }
 @media (max-width: 20em) {
   .header__number {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
+  }
+}
+@media (max-width: 61.99875em) {
+  .header__number {
+    margin: 0px 0px 10px 0px;
+  }
+  .header__number:last-child {
+    margin: 0px 0px 0px 0px;
   }
 }
 .header__number:hover {
@@ -411,7 +424,7 @@ textarea.input {
     margin: 0px 5px 0px 0px;
   }
   .menu__list li {
-    padding: 5px 0px;
+    padding: 10px 0px;
   }
 }
 @media (max-width: 47.99875em) {
